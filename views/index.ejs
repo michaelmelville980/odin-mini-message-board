@@ -5,7 +5,16 @@
     <link rel="stylesheet" href="/styles.css">
   </head>
   <body>
-    <h1>Hi</h1>
+    
+    <ul>
+      <% messages.forEach(message => { %>
+        <li>
+          Message: <%= message.text %><br>
+          User: <%= message.user %><br>
+          Date: <%= message.date %>
+        </li>
+      <% }) %>
+    </ul>
 
   </body>
 </html>

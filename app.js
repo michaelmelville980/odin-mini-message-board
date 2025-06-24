@@ -7,6 +7,18 @@ const path = require("node:path");
 
 // 3.) App (Root-Level Router)
 const app = express();
+const messages = [
+  {
+    text: "Hi there!",
+    user: "Amando",
+    added: new Date()
+  },
+  {
+    text: "Hello World!",
+    user: "Charles",
+    added: new Date()
+  }
+];
 
 // 4.) View Enginer
 app.set("views", path.join(__dirname, "views"));
@@ -17,8 +29,12 @@ app.use(express.static(path.join(__dirname, "public")));
 
 // 6.) Routes
 app.get("/", (req, res) => {
-  res.render("index");
+  res.render("index", { title: "Mini Messageboard", messages: messages });
 });
+
+app.post("/new", (req, res) => {
+
+})
 
 // 7.) Error Catching (404)
 app.use((req, res, next) => {
