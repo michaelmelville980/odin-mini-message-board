@@ -11,28 +11,54 @@ const messages = [
   {
     text: "Hi there!",
     user: "Amando",
-    added: new Date()
+    added: new Date(),
   },
   {
     text: "Hello World!",
     user: "Charles",
-    added: new Date()
-  }
+    added: new Date(),
+  },
 ];
 
 // 4.) View Enginer
+
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 
 // 5.) Middleware
 app.use(express.static(path.join(__dirname, "public")));
+app.use(express.urlencoded({extended: true}));
 
 // 6.) Routes
 app.get("/", (req, res) => {
   res.render("index", { title: "Mini Messageboard", messages: messages });
 });
 
+app.get("/new", (req, res) => {
+  res.render("form");
+});
+
 app.post("/new", (req, res) => {
+  console.log(req.body);
+  const messageUser = req.body.name;
+  const messageText = req.body.message;
+  messages.push({
+    text: messageText,
+    user: messageUser,
+    added: new Date()
+  });
+  res.redirect("/");
+});
+
+app.get("/message/:messageIndex", (req, res) => {
+  const id = Number(req.params.messageIndex);
+  const message = messages[id];
+
+  if (!message) {
+    return res.status(404).send("Message not found");
+  }
+
+  res.render("message", { message });
 
 })
 

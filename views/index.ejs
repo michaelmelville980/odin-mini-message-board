@@ -7,14 +7,24 @@
   <body>
     
     <ul>
-      <% messages.forEach(message => { %>
+      <% messages.forEach((message, idx) => { %>
         <li>
           Message: <%= message.text %><br>
           User: <%= message.user %><br>
           Date: <%= message.date %>
         </li>
+        <li>
+          <a href="message/<%= idx %>">
+            <button>Open</button>
+          </a>
+        </li>
       <% }) %>
+
     </ul>
+
+    <a href="/new">
+      <button>Add Message</button>
+    </a>
 
   </body>
 </html>
